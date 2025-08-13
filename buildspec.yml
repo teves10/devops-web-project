@@ -6,7 +6,6 @@ phases:
       java: corretto8
   pre_build:
     commands:
-      commands:
       - echo Logging into CodeArtifact...
       - aws codeartifact login \
           --tool maven \
