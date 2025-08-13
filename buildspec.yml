@@ -6,21 +6,17 @@ phases:
       java: corretto8
   pre_build:
     commands:
-      - echo Logging into CodeArtifact...
-      - aws codeartifact login \
-          --tool maven \
-          --repository devops-cicd\      
-          --domain nextwork \
-          --domain-owner 729386420364 \
-          --region ap-southeast-2
+      - echo Initializing environment
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 729386420364 --region ap-southeast-2 --query authorizationToken --output text`
+
   build:
     commands:
       - echo Build started on `date`
-      - mvn compile
+      - mvn -s settings.xml compile
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn package
+      - mvn -s settings.xml package
 artifacts:
   files:
     - target/devops-web-project.war
