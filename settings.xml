@@ -3,7 +3,7 @@
   <server>
     <id>devops-devops-cicd</id>
     <username>aws</username>
-    <password>${aws.codeartifact.token}</password>
+    <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
   </server>
 </servers>
 <profiles>
