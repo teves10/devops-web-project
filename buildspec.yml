@@ -21,4 +21,6 @@ phases:
 artifacts:
   files:
     - target/devops-web-project.war
+    - appspec.yml
+    - scripts/**/*
   discard-paths: no
