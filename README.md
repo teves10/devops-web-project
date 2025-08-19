@@ -294,6 +294,85 @@ Confirm the app is running and accessible.
 
 ---
 
+## 6. Set Up AWS CodePipeline (CI/CD Automation)
+
+### 1. Open CodePipeline
+
+   In the AWS Console, go to CodePipeline.
+
+   Click Create pipeline.
+
+### 2. Pipeline Settings
+
+   Pipeline name: devops-cicd-pipeline
+
+   Service role: Create new or use existing IAM role with full access to CodeCommit, CodeBuild, S3, and CodeDeploy.
+
+   Artifact store: Choose the S3 bucket used in Part 4 (e.g., devops-devops-cicd-artifacts).
+
+   Click Next.
+
+### 3. Add Source Stage
+
+   Source provider: CodeCommit
+
+   Repository name: Your CodeCommit repo 
+   
+   Branch name: main
+
+   Output artifact: SourceArtifact
+
+   Click Next.
+
+### 4. Add Build Stage
+
+   Build provider: CodeBuild
+
+   Project name: Select your build project (created in Part 4).
+
+   Input artifact: SourceArtifact
+
+   Output artifact: BuildArtifact
+
+Click Next.
+
+### 5. Add Deploy Stage
+
+Deploy provider: CodeDeploy
+
+Application name: `yourname`-devops-cicd (from Part 5)
+
+Deployment group: devops-devops-cicd-deploy-group (from Part 5)
+
+Input artifact: BuildArtifact
+
+Click Next.
+
+### 6. Review and Create Pipeline
+
+Review all stages: Source → Build → Deploy
+
+Click Create pipeline.
+
+The first run will start automatically.
+
+
+### 7. Verify the Pipeline
+
+In CodePipeline, watch the progress through Source → Build → Deploy.
+
+If successful, go to your browser:
+
+http://`<EC2-Public-DNS>`
+
+
+and confirm the app is live.
+
+Try making a small change in your CodeCommit repo → push → pipeline should trigger automatically → app redeployed.
+   
+ 
+---
+
 ## Result
 
 You now have a **fully automated CI/CD pipeline**:
